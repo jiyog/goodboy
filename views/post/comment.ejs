@@ -1,0 +1,53 @@
+<% include ../layout/header %>
+<div id="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="demo">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="h5"><a href="/profile/@<%= dataPost.owner.username %>">@<%= dataPost.owner.username %></a></div>
+                            </li>
+                            <li class="list-group-item">
+                                <%= dataPost.body %>
+                            </li>
+                            <% if(dataPost.image) { %>
+                                <li class="list-group-item">
+                                    <img src="/uploads/post/<%= dataPost.image %>" alt="<%= dataPost.image %>" width="500" height="500" />
+                                </li>
+                            <% } %>
+                            <% if(dataPost.comment.length > 0) { %>
+                                <li class="list-group-item">
+                                    <% dataPost.comment.forEach(db => { %>
+                                        <p><a href="/profile/@<%= db.username %>"><%= db.username %></a>: <%= db.bodyComment %></p>
+                                    <% }) %>
+                                </li>
+                            <% } else { %>
+                                <p style="margin: 20px 0px 10px 0px;">Nobody commented, be the first to comment it!</p>
+                            <% } %>
+                            <li class="list-group-item">
+                                <form action="/add-comment" method="post">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <input type="text" name="bodyComment" class="form-control" placeholder="Enter your comment :D" />
+                                                <input type="hidden" name="id" value="<%= dataPost._id %>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-info">Comment Now</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</div>
+<% include ../layout/footer %>

@@ -1,0 +1,78 @@
+<% include ../layout/header.ejs %>
+        <div id="home">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="h5">@<%= user %></div>
+                                <div class="h7 text-muted">Fullname : Do Minh Tung</div>
+                                <div class="h7">Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
+                                    etc.
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="h6 text-muted">Followers</div>
+                                    <div class="h5">5.2342</div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="h6 text-muted">Following</div>
+                                    <div class="h5">6758</div>
+                                </li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom: 10px;">
+                            <div class="card-body">
+                                <form action="/post" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <textarea name="bodyPost" placeholder="Enter your reaction" class="form-control"></textarea>
+                                    </div>
+                                    <div class="btn-toolbar justify-content-between">
+                                        <input type="file" name="imagePost" />
+                                        <button type="submit" class="btn btn-success">Post</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <% posts.forEach((log) => { %>
+                            <div class="card" style="margin-bottom: 10px;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="h5"><a href="/profile/<%= log.owner.userID %>">@<%= log.owner.username %></a></div>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= log.body %>
+                                </li>
+                               <% if(log.image)  { %>
+                                    <li class="list-group-item">
+                                    <img src="/uploads/post/<%= log.image %>" alt="<%= log.image %>" width="500" height="500" />
+                                    </li>
+                               <% } %>
+                                <li class="list-group-item">
+                                    <a href='/like' class="card-link" data-post="<%= log._id %>"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i> Like (<%= log.likes.length %>)</a>
+                                    <a href="/comment/<%= log._id %>" class="card-link"> <i class="fa fa-2x fa-comment-o" aria-hidden="true"></i> Comment (<%= log.comment.length %>)</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <% }) %>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="h6 text-muted">Notification</div>
+                                    <div class="h5">50</div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="h6 text-muted">Messenger</div>
+                                    <div class="h5">7</div>
+                                </li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                    </div>
+<% include ../layout/footer.ejs %>
